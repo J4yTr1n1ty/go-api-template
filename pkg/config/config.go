@@ -16,5 +16,5 @@ const (
 )
 
 func IsDebug() bool {
-	return boot.Environment.GetEnvBool("DEBUG")
+	return boot.Environment.GetEnvBool(EnvDebug)
 }
