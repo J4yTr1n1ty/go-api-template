@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"log"
+	"log/slog"
 	"net/http"
 	"time"
 )
@@ -32,6 +32,6 @@ func Logging(next http.Handler) http.Handler {
 			remoteip = r.RemoteAddr
 		}
 
-		log.Println(remoteip, wrapped.statusCode, r.Method, r.URL.Path, time.Since(start))
+		slog.Info("request", "remote_ip", remoteip, "status", wrapped.statusCode, "method", r.Method, "path", r.URL.Path, "duration", time.Since(start))
 	})
 }
