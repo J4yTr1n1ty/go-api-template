@@ -4,6 +4,8 @@ import (
 	"log/slog"
 	"net/http"
 	"time"
+
+	"github.com/J4yTr1n1ty/go-api-template/pkg/reqid"
 )
 
 type wrappedWriter struct {
@@ -32,6 +34,6 @@ func Logging(next http.Handler) http.Handler {
 			remoteip = r.RemoteAddr
 		}
 
-		slog.Info("request", "remote_ip", remoteip, "status", wrapped.statusCode, "method", r.Method, "path", r.URL.Path, "duration", time.Since(start))
+		slog.Info("request", "request_id", reqid.FromContext(r.Context()), "remote_ip", remoteip, "status", wrapped.statusCode, "method", r.Method, "path", r.URL.Path, "duration", time.Since(start))
 	})
 }

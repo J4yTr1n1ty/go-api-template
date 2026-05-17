@@ -52,7 +52,7 @@ func main() {
 
 	router := web.SetupRoutes()
 
-	stack := middleware.CreateStack(middleware.Logging, middleware.Recovery)
+	stack := middleware.CreateStack(middleware.RequestID, middleware.Logging, middleware.Recovery)
 
 	server := http.Server{
 		Addr:    ":" + boot.Environment.GetEnv(config.EnvPort),
