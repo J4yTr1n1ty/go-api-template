@@ -1,3 +1,17 @@
+// Package main is the entry point for the API server.
+//
+//	@title						Go API Template
+//	@version					dev
+//	@description				A template for building Go REST APIs.
+//	@host						localhost:8080
+//	@BasePath					/
+//
+//	@securityDefinitions.apikey	bearerAuth
+//	@in							header
+//	@name						Authorization
+//	@description				Type "Bearer" followed by a space and a JWT token.
+//
+//go:generate swag init -g cmd/server/main.go -o docs
 package main
 
 import (
@@ -7,6 +21,7 @@ import (
 	"os"
 	"path/filepath"
 
+	_ "github.com/J4yTr1n1ty/go-api-template/docs"
 	"github.com/J4yTr1n1ty/go-api-template/pkg/boot"
 	"github.com/J4yTr1n1ty/go-api-template/pkg/config"
 	"github.com/J4yTr1n1ty/go-api-template/pkg/models"

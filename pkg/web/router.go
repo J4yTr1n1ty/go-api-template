@@ -3,6 +3,8 @@ package web
 import (
 	"net/http"
 
+	httpSwagger "github.com/swaggo/http-swagger"
+
 	"github.com/J4yTr1n1ty/go-api-template/pkg/web/handlers/example"
 	"github.com/J4yTr1n1ty/go-api-template/pkg/web/middleware"
 )
@@ -17,6 +19,8 @@ func wrap(s middleware.Middleware, h http.HandlerFunc) http.Handler {
 
 func SetupRoutes() *http.ServeMux {
 	mux := http.NewServeMux()
+
+	mux.HandleFunc("GET /swagger/", httpSwagger.WrapHandler)
 
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
