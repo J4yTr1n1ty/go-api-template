@@ -12,7 +12,8 @@ const (
 	EnvPostgresUser = "POSTGRES_USER"
 	EnvPostgresPass = "POSTGRES_PASS"
 	EnvPostgresDB   = "POSTGRES_DB"
-	EnvLogFormat    = "LOG_FORMAT" // "json" (default) or "text"
+	EnvLogFormat    = "LOG_FORMAT"  // "json" (default) or "text"
+	EnvJwtSecret    = "JWT_SECRET"  // required when using RequireScope middleware
 )
 
 func IsDebug() bool {
