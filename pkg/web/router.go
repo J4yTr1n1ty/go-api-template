@@ -9,6 +9,10 @@ import (
 func SetupRoutes() *http.ServeMux {
 	mux := http.NewServeMux()
 
+	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
 	exampleHandler := example.NewHandler()
 	mux.Handle("GET /example", exampleHandler.GetExamples())
 
