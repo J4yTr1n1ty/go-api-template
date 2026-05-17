@@ -24,6 +24,7 @@ func SetupRoutes() *http.ServeMux {
 
 	exampleHandler := example.NewHandler()
 	mux.Handle("GET /example", exampleHandler.GetExamples())
+	mux.Handle("POST /example", exampleHandler.CreateExample())
 
 	return mux
 }
