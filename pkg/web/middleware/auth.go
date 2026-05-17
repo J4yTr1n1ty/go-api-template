@@ -88,4 +88,3 @@ func extractClaims(r *http.Request) (*Claims, error) {
 
 	return claims, nil
 }
-

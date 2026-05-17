@@ -9,6 +9,7 @@ import (
 
 	"github.com/J4yTr1n1ty/go-api-template/pkg/config"
 	"github.com/J4yTr1n1ty/go-api-template/pkg/reqid"
+	"github.com/J4yTr1n1ty/go-api-template/pkg/validate"
 	"github.com/jackc/pgx/v5/pgconn"
 )
 
@@ -42,21 +43,20 @@ func ErrorJSON(w http.ResponseWriter, r *http.Request, status int, msg string) {
 }
 
 // ValidationErrorJSON writes a 422 JSON response with field-level validation errors.
-// fields is a map of field name to error message.
-func ValidationErrorJSON(w http.ResponseWriter, r *http.Request, fields map[string]string) {
+func ValidationErrorJSON(w http.ResponseWriter, r *http.Request, fields validate.FieldErrors) {
 	rid := reqid.FromContext(r.Context())
 	slog.Warn("validation failed",
 		"request_id", rid,
 		"method", r.Method,
 		"path", r.URL.Path,
-		"fields", fields,
+		"fields", map[string]string(fields),
 	)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusUnprocessableEntity)
 	json.NewEncoder(w).Encode(struct { //nolint:errcheck
-		Error     string            `json:"error"`
-		Fields    map[string]string `json:"fields"`
-		RequestID string            `json:"request_id,omitempty"`
+		Error     string               `json:"error"`
+		Fields    validate.FieldErrors `json:"fields"`
+		RequestID string               `json:"request_id,omitempty"`
 	}{"validation failed", fields, rid})
 }
 
