@@ -51,8 +51,6 @@ func (EnvHandler) GetEnv(key string) string {
 }
 
 func (EnvHandler) GetEnvBool(key string) bool {
-	if value, ok := os.LookupEnv(key); ok {
-		return value == "true"
-	}
-	panic("Environment variable not set: " + key)
+	value, _ := os.LookupEnv(key)
+	return value == "true"
 }
